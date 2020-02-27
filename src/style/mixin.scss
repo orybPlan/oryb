@@ -1,0 +1,65 @@
+/**
+ * %定义的mixin，例:
+ *   定义: %example { ... }
+ *   使用: .btn { @extend %example; }
+ *   (@extend 也可以继承其他class的样式，例： .btn { @extend .text; })
+ *
+ * @mixin 定义的mixin，例:
+ *   定义: @mixin width($width: 10px) { width: $width; }
+ *   使用: .btn { @include width(20px); }
+ *     或: .btn { @include width; }
+ *
+ *
+ * 自定义mixin目录
+ * %one-line                             文字一行显示，多出的显示成...
+ * @mixin multi-line($num: 2)            文字多行显示，最后一行多出的显示成...
+ * %center                               absolute定位居中
+ */
+
+/* ===================================================
+ 自定义mixin
+==================================================== */
+/* 色值定义 */
+$color: #3871ed;
+$theme-color: #385697;
+$highLight-color: #407CFF;
+$light-color: rgba(56, 113, 237, 0.4);
+$dark-blue: #0050FF;
+$red: #ff0000;
+$green: #00b91e;
+$orange: #f18e12;
+$purple: #dd64d4;
+$white: #fff;
+$dark: #666;
+$black: #333;
+$grey: #999;
+$light-grey: #e9ebef;
+$slight-grey: #E2E2E2;
+$hover-grey: #EBEBEB;
+$stripe-grey: #F8F8F8;
+
+/* 布局定义 */
+$padding: 15px;
+$margin: 15px;
+
+/* 样式定义 */
+%one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin multi-line($num: 2) {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+%center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
