@@ -1,3 +1,5 @@
+/* eslint-disable vue/valid-v-bind */
+/* eslint-disable vue/no-unused-vars */
 <template>
   <div id="header">
     <div class="container">
@@ -32,14 +34,25 @@
             </li>
           </ul>
           <ul class="art_right fl">
-            <li v-for="item in spaceList" :key="item.spaceName">
+            <li v-for="(item,index2) in spaceList"
+              :key="item.spaceName"
+              :class="{hover2:currentIdx2 == index2}"
+              @mouseenter="addHover(index2)"
+              @mouseleave="removeHover"
+            >
               <div class="spaceContainer">
                 <div class="title fl">{{ item.spaceName }}</div>
                 <ul class="spaceDetail fl">
-                  <li v-for="child in item.children" :key="child.childName">
+                  <li v-for="(child,index1) in item.children" :key="child.childName"
+                    :class="{hover1:currentIdx1 == index1}"
+                    @mouseenter="addClassName(index1)"
+                    @mouseleave="removeClassName"
+                  >
                     <a href="javascript:void(0)">
-                      <img :src="child.childUrl" alt="">
-                      <p>{{ child.childName }}</p>
+                      <img v-if="!(currentIdx1==index1&&currentIdx2==index2)||currentIdx1===''||currentIdx2===''" :src="child.childUrl" alt="">
+                      <img v-if="currentIdx1==index1&&currentIdx2==index2&&currentIdx1!==''&&currentIdx2!==''" :src="child.childUrl_hover" alt="">
+                      <p v-if="!(currentIdx1==index1&&currentIdx2==index2)||currentIdx1===''||currentIdx2===''">{{ child.childName }}</p>
+                      <p v-if="currentIdx1==index1&&currentIdx2==index2&&currentIdx1!==''&&currentIdx2!==''" class="HoverG">{{ child.childName }}</p>
                     </a>
                   </li>
                 </ul>
@@ -108,56 +121,58 @@ export default {
         {
           spaceName: '客餐厅',
           children: [
-            { childName: '餐边柜', childUrl: '/static/brand/restaurant.png' },
-            { childName: '酒柜', childUrl: '/static/brand/restaurant.png' },
-            { childName: '电视柜', childUrl: '/static/brand/restaurant.png' },
-            { childName: '玄关柜', childUrl: '/static/brand/restaurant.png' },
-            { childName: '鞋柜', childUrl: '/static/brand/restaurant.png' }]
+            { childName: '餐边柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '酒柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '电视柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '玄关柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '鞋柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' }]
         },
         {
           spaceName: '橱柜定制',
           children: [
-            { childName: '橱柜', childUrl: '/static/brand/restaurant.png' }
+            { childName: '橱柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' }
           ]
         },
         {
           spaceName: '卧室',
           children: [
-            { childName: '儿童房', childUrl: '/static/brand/restaurant.png' },
-            { childName: '儿童床', childUrl: '/static/brand/restaurant.png' },
-            { childName: '衣帽间', childUrl: '/static/brand/restaurant.png' },
-            { childName: '衣柜', childUrl: '/static/brand/restaurant.png' },
-            { childName: '书柜', childUrl: '/static/brand/restaurant.png' },
-            { childName: '书桌', childUrl: '/static/brand/restaurant.png' }
+            { childName: '儿童房', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '儿童床', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '衣帽间', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '衣柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '书柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '书桌', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' }
           ]
         },
         {
           spaceName: '多功能房',
           children: [
-            { childName: '榻榻米', childUrl: '/static/brand/restaurant.png' },
-            { childName: '书柜', childUrl: '/static/brand/restaurant.png' },
-            { childName: '飘窗柜', childUrl: '/static/brand/restaurant.png' }
+            { childName: '榻榻米', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '书柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' },
+            { childName: '飘窗柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' }
           ]
         },
         {
           spaceName: '阳台',
           children: [
-            { childName: '阳台柜', childUrl: '/static/brand/restaurant.png' }
+            { childName: '阳台柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' }
           ]
         },
         {
           spaceName: '卫生间',
           children: [
-            { childName: '浴室柜', childUrl: '/static/brand/restaurant.png' }
+            { childName: '浴室柜', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' }
           ]
         },
         {
           spaceName: '移门',
           children: [
-            { childName: '移门', childUrl: '/static/brand/restaurant.png' }
+            { childName: '移门', childUrl: '/static/brand/restaurant.png', childUrl_hover: '/static/brand/restaurant1.png' }
           ]
         },
       ],
+      currentIdx1: '',
+      currentIdx2: '',
       currentIdx: 0,
       hoverIdx: '',
       searchContent: '',
@@ -173,7 +188,19 @@ export default {
     },
     hideDetail() {
       this.hoverIdx = '';
-    }
+    },
+    addClassName(index1) {
+      this.currentIdx1 = index1;
+    },
+    removeClassName() {
+      this.currentIdx1 = '';
+    },
+    addHover(index2) {
+      this.currentIdx2 = index2;
+    },
+    removeHover() {
+      this.currentIdx2 = '';
+    },
   }
 };
 </script>
@@ -334,6 +361,9 @@ export default {
                   }
                   p {
                      color: #505050;
+                  }
+                  p.HoverG{
+                    color: #008000;
                   }
                 }
               }
