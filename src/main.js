@@ -1,3 +1,12 @@
+/*
+ * @Module:
+ * @FileName:
+ * @Description:
+ * @Author: flq
+ * @Date: 2020-02-28 18:26:47
+ * @LastEditors: flq
+ * @LastEditTime: 2020-02-29 17:12:11
+ */
 import Vue from 'vue';
 import './style/reset.scss'; // 消除不同浏览器之间的默认样式差异
 import './style/element-variables.scss';
@@ -19,6 +28,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
 
 new Vue({
   router,

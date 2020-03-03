@@ -23,14 +23,17 @@
           @mouseenter="showDetail(0)"
           @mouseleave="hideDetail">
           <ul class="art_left fl">
-            <li class="style_item" v-for="item in styleList" :key="item.styleName">
-              <a href="javascipt:void(0)">
+            <li class="style_item" v-for="(item,index) in styleList" :key="item.styleName">
+              <!-- <a href="javascipt:void(0)"> -->
+              <!-- <router-link :to="{name:'headerdetail',query:{id:index}}"> -->
+              <router-link :to="{name:'list',query:{id:index}}">
                 <div class="imgBox">
                   <img :src="item.stylePic" alt="item.styleDes">
                 </div>
                 <span class="name">{{ item.styleName }}</span>
                 <span class="des">{{ item.styleDes }}</span>
-              </a>
+              </router-link>
+              <!-- </a> -->
             </li>
           </ul>
           <ul class="art_right fl">
