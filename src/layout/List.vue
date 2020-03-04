@@ -5,7 +5,7 @@
  * @Author: flq
  * @Date: 2020-02-29 21:09:35
  * @LastEditors: flq
- * @LastEditTime: 2020-03-03 22:21:18
+ * @LastEditTime: 2020-03-04 21:36:36
  -->
 <template>
   <div>
@@ -48,7 +48,7 @@
               </div>
               <ul class="styleul">
                 <li v-for="(item,index) in spaceList" :key='item.spaceName'
-                  :class="{hover:index==isHoverstyle}"
+                  :class="{hover:index==isHoverstyle,click:index==isClickstyle}"
                   @mouseenter="addHoverstyle(index)"
                   @mouseleave="removeHoverstyle()"
                   @click="clickLi(index)"
@@ -61,16 +61,18 @@
         </div>
         <div class="goodslist">
           <div class="goodsdiv">
-            <ul v-for="(item) in spaceList" :key="item.spaceName">
+            <ul v-for="(item,index) in spaceList" :key="item.spaceName"
+              :class="{showli:index!=isShowLi}"
+            >
               <li v-for="(itemdetail,index) in item.children" :key="index" class="goodsli"
-                :class="{active:index==isActive}"
-                @mouseenter="addboxHover(index)"
+                :class="{active:itemdetail==isActive}"
+                @mouseenter="addboxHover(itemdetail)"
                 @mouseleave="removeboxHover()"
               >
                 <div>
                   <img :src="itemdetail.childUrl" alt=""><br />
-                  {{itemdetail.childName}}<br />
-                  {{itemdetail.price}}
+                  <div>{{itemdetail.childName}}</div>
+                  <div>{{itemdetail.price}}</div>
                 </div>
               </li>
             </ul>
@@ -94,9 +96,11 @@ export default {
   },
   data() {
     return {
+      isShowLi: true,
       clickicon: false,
       isHover: false,
       isHoverstyle: false,
+      isClickstyle: false,
       isActive: false,
       bannerItems: [
         {
@@ -248,14 +252,14 @@ export default {
     removeHover() {
       this.isHover = null;
     },
-    addHoverstyle(index) {
-      this.isHoverstyle = index;
+    addHoverstyle(item) {
+      this.isHoverstyle = item;
     },
     removeHoverstyle() {
       this.isHoverstyle = null;
     },
-    addboxHover(index) {
-      this.isActive = index;
+    addboxHover(itemdetail) {
+      this.isActive = itemdetail;
     },
     removeboxHover() {
       this.isActive = null;
@@ -269,6 +273,10 @@ export default {
         this.$refs.img[index].src = '/static/icon/jianhao.png';
         this.$refs.img[index].parentNode.parentNode.nextSibling.style.display = 'block';
       }
+    },
+    clickLi(index) {
+      this.isShowLi = index;
+      this.isClickstyle = index;
     }
   },
 };
@@ -318,10 +326,14 @@ export default {
         float:left;
         width:25%;
         cursor: pointer;
+        height: 90px;
       }
       .active{
         box-shadow: 0 0 2px #d7d4d4;
         border: 1px solid #d7d4d4;
+      }
+      .showli{
+        display:none;
       }
     }
   }
@@ -356,6 +368,9 @@ export default {
   ul {
     display: none;
     .hover{
+      color: #7adfa9;
+    }
+    .click{
       color: #7adfa9;
     }
     li {
